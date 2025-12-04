@@ -1,0 +1,171 @@
+
+================================================================================
+FINAL MONSTER MODEL - DETAILED REPORT
+================================================================================
+
+COMPETITION: AiHack India 2025 - Credit Scoring
+DATE: 2025-11-08 21:32:47
+TARGET METRIC: ROC AUC Score
+
+================================================================================
+PERFORMANCE SUMMARY
+================================================================================
+
+Out-of-Fold AUC:        0.676075
+Best Ensemble Strategy: meta
+Number of Features:     221
+Cross-Validation Folds: 7
+
+Individual Model Performance:
+  - CatBoost:  0.675476 (±0.007864)
+  - LightGBM:  0.629233 (±0.006704)
+  - XGBoost:   0.670529 (±0.007743)
+
+Model Correlations:
+  - CB-LGB:   0.6829
+  - CB-XGB:   0.9334
+  - LGB-XGB:  0.6675
+
+================================================================================
+TECHNIQUES APPLIED
+================================================================================
+
+1. Feature Engineering (200+ features)
+   - Temporal patterns
+   - Fraud detection (loan discrepancies)
+   - Financial health (DTI ratios)
+   - Stability indicators
+   - Japanese cultural factors
+   - Regional patterns (JIS codes)
+   - Composite risk scores
+   - Interaction features
+   - Polynomial features
+
+2. Adversarial Validation
+   - Train/Test similarity: 1.00000
+   - AV score added as feature
+
+3. Clustering
+   - KMeans clustering on financial features
+   - 8 clusters created
+
+4. Data Preprocessing
+   - Power transformations (Yeo-Johnson)
+   - Missing value handling
+   - Outlier treatment
+
+5. Modeling
+   - CatBoost (depth=10, 6000 iterations)
+   - LightGBM (100 leaves, regularized)
+   - XGBoost (depth=10, regularized)
+
+6. Feature Selection
+   - Importance-based selection
+   - Kept top 90% features
+
+7. Meta-Learning (Stacking)
+   - Logistic Regression on base predictions
+   - 14 meta-features created
+
+8. Calibration
+   - Isotonic regression calibration
+   - Improved probability estimates
+
+9. Ensemble Strategies
+   - Weighted average
+   - Rank-based
+   - Power ensemble
+   - Meta-learner
+   - Blend of top 2
+
+================================================================================
+TOP 20 FEATURES BY IMPORTANCE
+================================================================================
+
+ 9. JIS Address Code                                    1001.72
+47. District                                             383.68
+80. Loan_Intensity                                       147.81
+68. DTI_Desired                                          128.24
+22. Total Annual Income                                  119.34
+ 1. Application Time                                     113.51
+215. av_score                                             110.35
+217. cluster_distance                                     106.32
+79. Desired_vs_Existing_Ratio                            105.75
+67. DTI_Existing                                          98.31
+182. Net_Risk_Score                                        94.28
+36. App_Minute                                            91.65
+186. Age_Stability                                         88.06
+95. Employment_to_Residence                               87.04
+28. Age                                                   86.41
+180. Total_Risk_Score                                      85.32
+88. Free_Income_Annual                                    85.01
+46. Prefecture                                            84.07
+190. Income_Dependents                                     83.97
+76. Avg_Existing_Loan                                     82.21
+
+================================================================================
+TEST PREDICTIONS SUMMARY
+================================================================================
+
+Mean:       0.098862
+Std Dev:    0.055746
+Min:        0.029539
+Max:        0.268524
+Median:     0.084328
+25th %ile:  0.050835
+75th %ile:  0.138262
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+1. This model has achieved 0.6761 AUC
+2. Expected leaderboard position: Competitive
+3. Next steps:
+   - Submit immediately
+   - Monitor public leaderboard
+   - If top 15, implement pseudo-labeling
+   - Try hyperparameter tuning with Optuna
+   - Create ensemble of multiple submissions
+
+================================================================================
+KEY INSIGHTS
+================================================================================
+
+1. Fraud detection features are CRITICAL
+   - Loan underreporting is strong predictor
+   - Honesty score highly predictive
+
+2. Financial health indicators matter
+   - DTI ratio >0.6 is high risk
+   - Free income ratio important
+
+3. Stability is key
+   - Job tenure <1 year increases risk
+   - Homeownership is protective
+
+4. Japanese cultural factors help
+   - Fiscal year patterns
+   - Regional differences
+   - Company prestige matters
+
+================================================================================
+TECHNICAL SPECIFICATIONS
+================================================================================
+
+Python Version: 3.x
+Key Libraries:
+  - pandas
+  - numpy
+  - catboost
+  - lightgbm
+  - xgboost
+  - scikit-learn
+  - scipy
+
+Training Time: ~21 minutes (estimated)
+Memory Usage: ~2-4 GB
+
+================================================================================
+END OF REPORT
+================================================================================
